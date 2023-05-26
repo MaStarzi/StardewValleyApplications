@@ -3,7 +3,7 @@ A bunch of programs or applications to help you with your Stardew Valley Run
 
 
 
-# SDV_FriendshipApp
+### SDV_FriendshipApp
 > USES COOKIES
 
 This little application can be used to track your Friendship with everyone.
