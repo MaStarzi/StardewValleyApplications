@@ -5,6 +5,7 @@ A bunch of programs or applications to help you with your Stardew Valley Run
 
 # SDV_FriendshipApp
 > USES COOKIES
+
 This little application can be used to track your Friendship with everyone.
 It is a small .html file which can be run locally in your standard browser.
 This Application uses html, JavaScript and CSS to bring you some functionality with a little bit of style.
