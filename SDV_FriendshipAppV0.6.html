@@ -671,7 +671,7 @@
 					}
 				}
 				relationShipArray[name] = number;
-				document.cookie = "relationShipArray="+JSON.stringify(relationShipArray)+";samesite=strict";
+				document.cookie = "relationShipArray="+JSON.stringify(relationShipArray)+";samesite=strict" // TODO: use localStorage (localStorage.setItem("notReallyCookies");) instead
 			}			
 			
 			function removeThis(id) {
@@ -682,7 +682,7 @@
 				var showbtn = element.getElementsByClassName("showBtn")[0];
 				showbtn.setAttribute("data-hidden",false);
 				hiddenArray[id]=true;
-				document.cookie = "hiddenArray="+JSON.stringify(hiddenArray)+";samesite=strict";
+				document.cookie = "hiddenArray="+JSON.stringify(hiddenArray)+";samesite=strict"; // TODO: use localStorage (localStorage.setItem("notReallyCookies");) instead
 			}
 			
 			function showThis(id) {
@@ -693,10 +693,10 @@
 				var showbtn = element.getElementsByClassName("showBtn")[0];
 				showbtn.removeAttribute("data-hidden");
 				hiddenArray[id]=false;
-				document.cookie = "hiddenArray="+JSON.stringify(hiddenArray)+";samesite=strict";
+				document.cookie = "hiddenArray="+JSON.stringify(hiddenArray)+";samesite=strict"; // TODO: use localStorage (localStorage.setItem("notReallyCookies");) instead
 			}
 
-			function getCookieObject() { 
+			function getCookieObject() { // TODO: use localStorage (localStorage.getItem("notReallyCookies");) instead
 				let cookieString = document.cookie;
 				let cookieArray = cookieString.split('; ');
 				let cookieObject = {};
