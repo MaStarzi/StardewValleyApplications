@@ -554,10 +554,10 @@
 			
 			fill()
 
-			var cookie = getCookieObject();
+			var cookie = getCookieObject(); //This is not a cookie anympre. It uses HTML5 LOCALSTORAGE! \o/ WOOOOHOOOO
 			window.onload = () => {
 				if (cookie.hiddenArray) {
-					var hiddenArray = JSON.parse(cookie.hiddenArray);
+					var hiddenArray = cookie.hiddenArray;
 					for (vil in hiddenArray) {
 						if (hiddenArray[vil]===true) {
 							removeThis(vil);
@@ -569,7 +569,7 @@
 
 				}
 				if (cookie.relationShipArray) {
-					var relationShipArray = JSON.parse(cookie.relationShipArray);
+					var relationShipArray = cookie.relationShipArray;
 					for (name in relationShipArray) {
 						fillUntil(name, relationShipArray[name]);
 					}
@@ -672,6 +672,7 @@
 				}
 				relationShipArray[name] = number;
 				document.cookie = "relationShipArray="+JSON.stringify(relationShipArray)+";samesite=strict" // TODO: use localStorage (localStorage.setItem("notReallyCookies");) instead
+				localStorage.setItem("relationShipArray",JSON.stringify(relationShipArray));
 			}			
 			
 			function removeThis(id) {
@@ -683,6 +684,7 @@
 				showbtn.setAttribute("data-hidden",false);
 				hiddenArray[id]=true;
 				document.cookie = "hiddenArray="+JSON.stringify(hiddenArray)+";samesite=strict"; // TODO: use localStorage (localStorage.setItem("notReallyCookies");) instead
+				localStorage.setItem("hiddenArray",JSON.stringify(hiddenArray));
 			}
 			
 			function showThis(id) {
@@ -694,16 +696,24 @@
 				showbtn.removeAttribute("data-hidden");
 				hiddenArray[id]=false;
 				document.cookie = "hiddenArray="+JSON.stringify(hiddenArray)+";samesite=strict"; // TODO: use localStorage (localStorage.setItem("notReallyCookies");) instead
+				localStorage.setItem("hiddenArray",JSON.stringify(hiddenArray));
 			}
 
 			function getCookieObject() { // TODO: use localStorage (localStorage.getItem("notReallyCookies");) instead
-				let cookieString = document.cookie;
-				let cookieArray = cookieString.split('; ');
 				let cookieObject = {};
-				for (cookie of cookieArray) {
-					cook = cookie.split('=');
-					cookieObject[cook[0]] = cook[1];
-				}
+				relations = localStorage.getItem('relationShipArray')
+				console.log(relations);
+				cookieObject.relationShipArray = JSON.parse(relations);
+				hiddens = localStorage.getItem('hiddenArray')
+				console.log(hiddens);
+				cookieObject.hiddenArray = JSON.parse(hiddens);
+				// let cookieString = document.cookie;
+				// let cookieArray = cookieString.split('; ');
+				// let cookieObject = {};
+				// for (cookie of cookieArray) {
+				// 	cook = cookie.split('=');
+				// 	cookieObject[cook[0]] = cook[1];
+				// }
 				return cookieObject;
 			}
 
