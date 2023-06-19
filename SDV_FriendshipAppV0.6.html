@@ -464,7 +464,9 @@
 
 
 	<body>
-		
+		<a id="exportLink" download="friendship_export.csv" hidden></a>
+		<input id="importInput" type="file" onchange="importStatus()" hidden>
+
 		<div>
 			<h1>Stardew Valley <span class="icon" data-image="fullheart"></span>Friendship<span class="icon" data-image="fullheart"></span> Tracker</h1>
 			<sup>a small device to help your life. (Version: 0.6 with cookies)</sup>
@@ -477,7 +479,9 @@
 		<!--<button onclick="fill()">Fill Array</button>-->
 		<button id="showHiddenBtn" onclick="showHidden()">show hidden</button>
 		<button id="hideHiddenBtn" onclick="hideHidden()" hidden>hide hidden</button>
-
+		<button id="exportBtn" onclick="exportStatus()">export</button>
+		<button id="importBtn" onclick="importInput.click()">import</button>
+		
 		<table>
 			<thead>
 				<tr>
@@ -548,7 +552,10 @@
 			
 			const showHiddenBtn = document.getElementById("showHiddenBtn");
 			const hideHiddenBtn = document.getElementById("hideHiddenBtn");
-			
+
+			const exportLink = document.getElementById("exportLink");
+			const importInput = document.getElementById("importInput");
+
 			var allNPC = [];
 			// Filling allNPC 's Array with Objects \o/
 			allNPCnames.forEach(function(e){
@@ -605,6 +612,66 @@
 				table.setAttribute("data-showHidden",false);
 			}
 			
+			function exportStatus() {
+				let csv = "data:text/csv;charset=utf-8,";
+
+				csv += "Relaionship levels:\n";
+				for (r in relationShipArray) 
+					csv += r + ", " + relationShipArray[r] + "\n";
+				
+				csv += "Hidden villagers:\n";
+				for (h in hiddenArray) 
+					csv += h + ", " + hiddenArray[h] + "\n";
+				
+
+				exportLink.setAttribute("href", csv);
+				exportLink.click();
+			}
+
+			function importStatus() {
+				resetAll();
+
+				let reader = new FileReader();
+				let file = importInput.files[0];
+
+				reader.onload = () => { 
+					reader.result.split(/\r?\n/).forEach((line) => {
+  						if (line.startsWith("Relationship") || line.startsWith("Hidden"))
+							return;
+
+						if (line.startsWith("villager")) 
+							importStatusHidden(line);
+						else 
+							importStatusRelationship(line);
+					});
+
+					importInput.value = "";
+    			};
+
+    			reader.readAsText(file);   
+			}
+
+			function resetAll() {
+				for (vil in hiddenArray)
+					showThis(vil);
+
+				for (vil in relationShipArray)
+					fillUntil(vil, -1);
+			}
+
+			function importStatusHidden(line) {
+				let split = line.split(", ");
+
+				if (split[1] === "true")
+					removeThis(split[0]);
+			}
+
+			function importStatusRelationship(line) {
+				let split = line.split(", ");
+
+				fillUntil(split[0], split[1]);
+			}
+
 			function addFriend(object, index) {
 				var newRow = document.createElement("tr");
 				newRow.setAttribute("id",'villager'+index);
