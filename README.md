@@ -6,10 +6,10 @@ A bunch of programs or applications to help you with your Stardew Valley Run
 ### SDV_FriendshipApp
 > Doesn't use cookies anymore. But uses localStorage instead.
 
-This little application can be used to track your Friendship with everyone.
+This little application can be used to track your friendship with everyone.
 It is a small .html file which can be run locally in your standard browser.
 This Application uses html, JavaScript and CSS to bring you some functionality with a little bit of style.
-Using the ingame sprites turned into Bas64 strings to save everything in one file.
+Using the ingame sprites turned into Base64 strings to save everything in one file.
 
 You can track friendship on the right side by clicking on/touching the hearts and also hide/show specific NPCs. Wether you still need them or just don't want to have them as your friends.
 > ONCE YOU USE ANY OF THE FUNCTIONALITY THE FILE WILL STORE DATA IN YOUR BROWSERS LOCALSTORAGE!!!
