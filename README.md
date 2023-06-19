@@ -16,7 +16,7 @@ You can track friendship on the right side by clicking on/touching the hearts an
 
 When you open the page back up (with the same browser on the same device with your local storage for this page not deleted and the file still in the same spot) everything you saved last should* be reloaded.
 
-* if it isn't do not blame me. 
+\* if it isn't do not blame me. 
 
 TODO:
 + function to clear eveything saved and start again (Next feature to be implemented... probably.)
