@@ -38,5 +38,6 @@ When you open the page back up (with the same browser on the same device with yo
 
 ## Contributors
 [VincentSteele](https://github.com/VincentSteele)
+
 [2low4gaming](https://github.com/2low4gaming)
 
