@@ -64,6 +64,7 @@
 				height: 18px;
 				background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAASCAYAAAC0EpUuAAABhWlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw1AUhU9TiyIVBzuoOGSo4mBBVMRRq1CECqFWaNXB5KV/0KQhSXFxFFwLDv4sVh1cnHV1cBUEwR8QVxcnRRcp8b6k0CLGB5f3cd47h/vuA4R6mWlWxzig6baZSsTFTHZV7HxFCANUo4jKzDLmJCkJ3/V1jwDf72I8y//en6tHzVkMCIjEs8wwbeIN4ulN2+C8TxxhRVklPiceM6lB4keuKx6/cS64LPDMiJlOzRNHiMVCGyttzIqmRjxFHFU1nfKFjMcq5y3OWrnKmn3yF4Zz+soy16mGkMAiliBBhIIqSijDRox2nRQLKTqP+/gHXb9ELoVcJTByLKACDbLrB/+D37O18pMTXlI4DoReHOdjGOjcBRo1x/k+dpzGCRB8Bq70lr9SB2Y+Sa+1tOgR0LsNXFy3NGUPuNwB+p8M2ZRdKUgl5PPA+xl9UxbouwW617y5Nc9x+gCkaVbJG+DgEBgpUPa6z7u72uf2753m/H4Ahwlyr9+VoFgAAAAGYktHRAD/AP8A/6C9p5MAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfnBRkFKTKoPhp/AAAAZ0lEQVQ4y2P8//8/AwyEMoojOEhg9f+XjKSoYWKgAaCJoSzI3mkxfwWXULdywhosxKgZOt5nDGEQw+o1UkHNSTGGIeh9XImfmKBA9vLQTPwo3kcGuIICl5dp7lL6eh9XUODy8tD0PgCwmTNTqvHuuQAAAABJRU5ErkJggg==)
 			}
+
 			[data-image="lockedheart"], .lockedheart {
 				width: 21px;
 				height: 18px;
@@ -478,6 +479,8 @@
 
 
 	<body>
+		<a id="exportLink" download="friendship_export.csv" hidden></a>
+		<input id="importInput" type="file" onchange="importStatus()" hidden>
 		
 		<div>
 			<h1>Stardew Valley <span class="icon" data-image="fullheart"></span>Friendship<span class="icon" data-image="fullheart"></span> Tracker</h1>
@@ -494,6 +497,8 @@
 			<button id="hideHiddenBtn" onclick="hideHidden()" hidden>hide hidden</button>
 			<button id="clearStorageBtn" onclick="showAll()">show all</button>
 			<button id="saveBtn" onclick="saveAll()">save</button>
+			<button id="exportBtn" onclick="exportStatus()">export</button>
+			<button id="importBtn" onclick="importInput.click()">import</button>
 			<button id="resetBtn" onclick="reset()">reset</button>
 			<input id="saveAfterOperationChk" type="checkbox" checked />
 			<label for="saveAfterOperationChk">Save after every operation</label>
@@ -573,6 +578,8 @@
 			const saveAfterOperationChk = document.getElementById("saveAfterOperationChk");
 			
 			
+			const exportLink = document.getElementById("exportLink");
+			const importInput = document.getElementById("importInput");
 			
 			var allNPC = [];
 			// Filling allNPC 's Array with Objects \o/
@@ -618,6 +625,7 @@
 				eh.setAttribute("src","data:image/png;base64,"+icons['emptyheart']);
 			}*/
 
+			
 			function fill() {
 				allNPC.forEach(addFriend)
 			}
@@ -632,6 +640,67 @@
 				hideHiddenBtn.setAttribute("hidden",true);
 				table.setAttribute("data-showHidden",false);
 			}
+
+			function exportStatus() {
+				let csv = "data:text/csv;charset=utf-8,";
+
+				csv += "Relaionship levels:\n";
+				for (r in relationShipArray) 
+					csv += r + ", " + relationShipArray[r] + "\n";
+				
+				csv += "Hidden villagers:\n";
+				for (h in hiddenArray) 
+					csv += h + ", " + hiddenArray[h] + "\n";
+				
+
+				exportLink.setAttribute("href", csv);
+				exportLink.click();
+			}
+
+			function importStatus() {
+				resetAll();
+
+				let reader = new FileReader();
+				let file = importInput.files[0];
+
+				reader.onload = () => { 
+					reader.result.split(/\r?\n/).forEach((line) => {
+  						if (line.startsWith("Relationship") || line.startsWith("Hidden"))
+							return;
+
+						if (line.startsWith("villager")) 
+							importStatusHidden(line);
+						else 
+							importStatusRelationship(line);
+					});
+
+					importInput.value = "";
+    			};
+
+    			reader.readAsText(file);   
+			}
+
+			function resetAll() {
+				for (vil in hiddenArray)
+					showThis(vil);
+
+				for (vil in relationShipArray)
+					fillUntil(vil, -1);
+			}
+
+			function importStatusHidden(line) {
+				let split = line.split(", ");
+
+				if (split[1] === "true")
+					removeThis(split[0]);
+			}
+
+			function importStatusRelationship(line) {
+				let split = line.split(", ");
+
+				fillUntil(split[0], split[1]);
+			}
+
 			function showAll() {
 				for (let i=0; i<table.children.length; i++) {
 					showThis('villager'+i);
