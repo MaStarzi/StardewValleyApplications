@@ -28,7 +28,7 @@ When you open the page back up (with the same browser on the same device with yo
 + Everything done without any connection to the internet! Everything local and in one file!
 
 ### TODO:
-+ ~~function to clear eveything saved and start again (Next feature to be implemented... probably.)~~
++ ~~function to clear eveything saved and start again (Next feature to be implemented... probably.)~~ **(Done)**
 + ~~function to "download"<sup>1</sup> the saved state~~ **(Thanks VincentSteele)**
 + Rework of models to allow easy implementation of:
   + function to mark bachelor/ette NPC as Boyfriend/Girlfriend
