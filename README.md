@@ -18,12 +18,27 @@ When you open the page back up (with the same browser on the same device with yo
 
 \* if it isn't do not blame me. 
 
-TODO:
-+ function to clear eveything saved and start again (Next feature to be implemented... probably.)
-+ function to "download"<sup>1</sup> the saved state
-+ function to mark bachelor/ette NPC as Boyfriend/Girlfriend
-+ function to mark bachelor/ette NPC as Husband/Wife
+### Features
++ List all NPCs from the base game
++ Hide NPCs you don't need to see
++ Save your Friendship-Level for each NPC
++ Save data in your browsers local storage
++ Download data as CSV
++ Import data from CSV
++ Everything done without any connection to the internet! Everything local and in one file!
+
+### TODO:
++ ~~function to clear eveything saved and start again (Next feature to be implemented... probably.)~~ **(Done)**
++ ~~function to "download"<sup>1</sup> the saved state~~ **(Thanks VincentSteele)**
++ Rework of models to allow easy implementation of:
+  + function to mark bachelor/ette NPC as Boyfriend/Girlfriend
+  + function to mark bachelor/ette NPC as Husband/Wife
 + function to add your own NPC (wether for children or for custom NPCs from Mods)
++ data-popup on items (on mouseover for desktop and touch on mobile)
 
 
-<sup>1</sup>) download as in saving a storage file anywhere on your device (like in a human readable .txt file or something idk yet.)
+## Contributors
+[VincentSteele](https://github.com/VincentSteele)
+
+[2low4gaming](https://github.com/2low4gaming)
+
