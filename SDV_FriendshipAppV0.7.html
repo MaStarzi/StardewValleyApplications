@@ -1,59 +1,100 @@
 <html>
 	<head>
 		<style>
-			body {
+				body {
+				}
+				[data-hidden="true"] {
+					background-color: whitesmoke;
+					color: lightgrey;
+					display: none;
+				}
+				[data-showHidden="true"] [data-hidden="true"] {
+					display: table-row;
+				}
+				[data-showHidden="true"] [data-hidden="true"] .hideBtn {
+					display: none;
+				}
+				[data-showHidden="true"] [data-hidden="true"] .showBtn {
+					display: inline-block;
+				}
+				[data-showHidden="false"] [data-hidden="true"] {
+					display: none;
+				}
+				[data-showHidden="false"] [data-hidden="true"] [data-hidden="true"] {
+					display: none;
+				}
+				.nowrap {
+					white-space: nowrap;
+				}
+				.innerlist {
+					margin-left: 5px;
+					margin-right: 5px;
+					display: inline-block;
+					white-space: nowrap;
+				}
+				.outerlist {
+					display: flex;
+					/* width: 70vw; */
+					flex-wrap: wrap; 
+				}
+				.heartlist {
+					display: inline-block;
+					white-space: nowrap;
+				}
+				.icon {
+					width: 24px;
+					height: 24px;
+					display: inline-block;
+				}
+				tr:hover {
+					background-color: whitesmoke;
+				}
+				#toolbar {
+					position: -webkit-sticky; /* Safari */
+					position: sticky;
+					top: 0;
+					background-color: white;
+				}
+				.checkboxGroup {
+					display: flex;
+					flex-wrap: nowrap;
+					align-items: center;
+					/* align-content: center; */
+				}
+			@media only screen and not (max-width: 600px) {
+				#toolbar label:after {
+					content: ' after every operation';
+				}
+				.checkboxGroup {
+					display:inline-block;
+				}
 			}
-			[data-hidden="true"] {
-				background-color: whitesmoke;
-				color: lightgrey;
-				display: none;
-			}
-			[data-showHidden="true"] [data-hidden="true"] {
-				display: table-row;
-			}
-			[data-showHidden="true"] [data-hidden="true"] .hideBtn {
-				display: none;
-			}
-			[data-showHidden="true"] [data-hidden="true"] .showBtn {
-				display: inline-block;
-			}
-			[data-showHidden="false"] [data-hidden="true"] {
-				display: none;
-			}
-			[data-showHidden="false"] [data-hidden="true"] [data-hidden="true"] {
-				display: none;
-			}
-			.nowrap {
-				white-space: nowrap;
-			}
-			.innerlist {
-				margin-left: 5px;
-				margin-right: 5px;
-				display: inline-block;
-				white-space: nowrap;
-			}
-			.outerlist {
-				display: flex;
-				/* width: 70vw; */
-				flex-wrap: wrap; 
-			}
-			.heartlist {
-				display: inline-block;
-				white-space: nowrap;
-			}
-			.icon {
-				width: 24px;
-				height: 24px;
-				display: inline-block;
-			}
-			tr:hover {
-				background-color: whitesmoke;
-			}
-			#toolbar {
-				position: -webkit-sticky; /* Safari */
-  				position: sticky;
-  				top: 0;
-  				background-color: white;
+			@media only screen and (max-width: 600px) {
+				thead tr :nth-child(4) {
+					content: 'FS';
+				}
+				#toolbar {
+					display: flex;
+					text-align: center;
+					user-select: none;
+				}
+				#toolbar label{
+					text-align: center;
+				}
+				tbody tr {
+					height: 90px;
+				}
+				#toolbar button {
+					width: 80px;
+					height: 30px;
+					white-space: nowrap;
+					font-size: x-small;
+				}
+				.heartlist {
+					display: flex;
+					flex-direction: column-reverse;
+					width: 21px;
+				}
 			}
 		</style>
 
@@ -480,7 +521,7 @@
 
 	<body>
 		<a id="exportLink" download="friendship_export.csv" hidden></a>
-		<input id="importInput" type="file" onchange="importStatus()" hidden>
+		<input id="importInput" type="file" onchange="importStatus()" hidden />
 		
 		<div>
 			<h1>Stardew Valley <span class="icon" data-image="fullheart"></span>Friendship<span class="icon" data-image="fullheart"></span> Tracker</h1>
@@ -500,8 +541,8 @@
 			<button id="exportBtn" onclick="exportStatus()">export</button>
 			<button id="importBtn" onclick="importInput.click()">import</button>
 			<button id="resetBtn" onclick="reset()">reset</button>
-			<input id="saveAfterOperationChk" type="checkbox" checked />
-			<label for="saveAfterOperationChk">Save after every operation</label>
+			<div class="checkboxGroup"><input id="saveAfterOperationChk" type="checkbox" checked />
+			<label for="saveAfterOperationChk">Save</label></div>
 		</div>
 
 		<table>
@@ -644,7 +685,7 @@
 			function exportStatus() {
 				let csv = "data:text/csv;charset=utf-8,";
 
-				csv += "Relaionship levels:\n";
+				csv += "Relationship levels:\n";
 				for (r in relationShipArray) 
 					csv += r + ", " + relationShipArray[r] + "\n";
 				
