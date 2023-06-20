@@ -25,6 +25,7 @@ When you open the page back up (with the same browser on the same device with yo
 + Save data in your browsers local storage
 + Download data as CSV
 + Import data from CSV
++ Everything done without any connection to the internet! Everything local and in one file!
 
 ### TODO:
 + ~~function to clear eveything saved and start again (Next feature to be implemented... probably.)~~
